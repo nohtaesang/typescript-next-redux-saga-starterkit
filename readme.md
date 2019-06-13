@@ -31,20 +31,20 @@ npm install --save @zeit/next-typescript
 ```
 
 
-### redux-saga 설치
+### 5. redux-saga 설치
 ```
 npm install --save redux react-redux redux-logger redux-saga @types/redux @types/react-redux @types/redux-logger @types/redux-saga
 ```
 
 
-### .babelrc.js 추가
+### 6. .babelrc.js 추가
 ```javascript
 module.exports = {
 	presets: [ 'next/babel', '@zeit/next-typescript/babel' ]
 };
 ```
 
-### next.config.js 추가
+### 7. next.config.js 추가
 ```javascript
 const withTypescript = require('@zeit/next-typescript');
 
@@ -52,7 +52,7 @@ module.exports = withTypescript();
 
 ```
 
-### tsconfig.json 추가
+### 8. tsconfig.json 추가
 ```javascript
 {
     "compilerOptions": {
@@ -69,7 +69,7 @@ module.exports = withTypescript();
 }
 ```
 
-### package.json 수정
+### 9. package.json 수정
 ```
 "scripts": {
     "dev": "next",
@@ -78,7 +78,7 @@ module.exports = withTypescript();
 },
 ```
 
-### directory 구조
+### 10. directory 구조
 ```
 node_modules
 pages
@@ -106,7 +106,7 @@ readme.md
 tsconfig.json
 ```
 
-### pages 폴더 하위 파일 수정
+### 11. pages 폴더 하위 파일 수정
 #### pages/_app.tsx
 ```typescript
 import App, { Container } from 'next/app';
@@ -177,7 +177,7 @@ export default class extends React.Component {
 
 ```
 
-### redux 폴더 하위 파일 수정
+### 12. redux 폴더 하위 파일 수정
 #### src/ts/redux/reducers
 ```typescript
 import { combineReducers } from 'redux';
@@ -214,7 +214,7 @@ sagaMiddleware.run(rootSaga);
 export default store;
 ```
 
-### 빌드 및 실행
+### 13. 빌드 및 실행
 ```
 yarn run dev
 ```
