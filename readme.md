@@ -1,5 +1,5 @@
 # 2019-06-13 기준
-# Create a blank fill test
+# typescript-next-redux-saga-starterkit
 
 typescript를 시작하면서 기존의 사용하던 것들을 입히는 작업들이 어려웠다. 여러 시행착오를 거쳐 현재 사용하고 있는 방법을 정리했다.
 
