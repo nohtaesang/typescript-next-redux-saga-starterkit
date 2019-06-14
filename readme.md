@@ -223,19 +223,20 @@ export default store;
 ```
 yarn run dev
 ```
-
-## 3. 간단한 예제 파일 추가
+## 4. 간단한 예제 파일 추가 
 ### 목표
 * DB에서 사용자의 입력에 일치하는 groupId 값을 가진 person 을 가져와 출력한다.
 
 ```
 pages
-	- person.tsx (add)
-
+	- person.tsx (add) // react-redux의 connect를 사용한 예제
+	- person.tsx (add) // react-redux 의 useSelector, useDispatch를 사용한 예제
 src
 	- ts
 		- components
 			- person (add)
+				- index.tsx (add)
+			- perosn2 (add)
 				- index.tsx (add)
 		- redux
 			- actions
@@ -250,11 +251,12 @@ src
 				- person.ts (add)
 ```
 
-#### pages/person.tsx
+#### pages/person.tsx, pages/person2.tsx 
 ```typescript
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
 import Person from '../src/ts/components/person';
+// import Person2 from '../src/ts/components/person';   // person2.tsx 에서 사용
 
 const App: FunctionComponent = () => {
 	return <Person />;
@@ -316,6 +318,49 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
 export default connect<StateProps, DispatchProps, OwnProps>(mapStateToProps, mapDispatchToProps)(Test);
+```
+
+### src/ts/components/person2/index.tsx
+```typescript
+import * as React from 'react';
+import { FunctionComponent, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { State } from '../../redux/reducers';
+import { Person } from '../../redux/models/person';
+import { personActionConstant } from '../../redux/actions/person';
+
+type OwnProps = {};
+
+const Test: FunctionComponent<OwnProps> = (props) => {
+	const personList: Person[] = useSelector((state: State) => state.personReducer.personList);
+	const dispatch = useDispatch();
+
+	const [ groupId, setGroupId ] = useState(0);
+
+	const handleChangeGroupInput = (e) => {
+		const nextGroupId = parseInt(e.target.value);
+		if (isNaN(nextGroupId)) {
+			setGroupId(0);
+		} else {
+			setGroupId(nextGroupId);
+		}
+	};
+
+	const onClickGetPersonList = () => {
+		dispatch({ type: personActionConstant.GET_PERSON_LIST, payload: groupId });
+	};
+	return (
+		<div>
+			<input onChange={handleChangeGroupInput} value={groupId} />
+			<button onClick={onClickGetPersonList}>click me</button>
+			<div>
+				{personList.map((person) => <div key={person.id}>{`${person.firstName} ${person.lastName}`}</div>)}
+			</div>
+		</div>
+	);
+};
+
+export default Test;
 ```
 
 #### src/ts/redux/actions/person.ts

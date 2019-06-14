@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import Person from '../src/ts/components/person';
+import Person2 from '../src/ts/components/person2';
 
 const App: FunctionComponent = () => {
-	return <Person />;
+	return <Person2 />;
 };
 
 export default App;
