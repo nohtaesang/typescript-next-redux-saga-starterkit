@@ -6,53 +6,57 @@ typescript를 시작하면서 기존의 사용하던 것들을 입히는 작업�
 ## 1. 구성
 ### Front-End
 ```
-react.js, next.js, typescript, redux-saga
+react.js, next.js, typescript, redux-saga, scss
 ```
 
 ## 2. 기본 셋팅하기
-### 1. npm init
+### npm init
 ```
 npm init
 ```
 
-### 2. react.js, next.js 설치
+### react.js, next.js 설치
 ```
-npm install --save react react-dom next @types/react @types/react-dom @types/next
-```
-
-### 3. typescript 설치
-```
-npm install --save-dev typescript awesome-typescript-loader source-map-loader
+yarn add react react-dom next @types/react @types/react-dom @types/next
 ```
 
-### 4. next.js 와 typescript 호환 플러그인 설치
+### typescript 설치
 ```
-npm install --save @zeit/next-typescript
+yarn add typescript awesome-typescript-loader source-map-loader -D
+```
+
+### next.js 와 typescript 호환 플러그인 설치
+```
+yarn add @zeit/next-typescript
+```
+
+### next.js 와 scss 호환 플러그인 설치
+```
+yarn add @zeit/next-sass node-sass
+```
+
+### redux-saga 설치
+```
+yarn add redux react-redux redux-logger redux-saga @types/redux @types/react-redux @types/redux-logger @types/redux-saga
 ```
 
 
-### 5. redux-saga 설치
-```
-npm install --save redux react-redux redux-logger redux-saga @types/redux @types/react-redux @types/redux-logger @types/redux-saga
-```
-
-
-### 6. .babelrc.js 추가
+### .babelrc.js 추가
 ```javascript
 module.exports = {
 	presets: [ 'next/babel', '@zeit/next-typescript/babel' ]
 };
 ```
 
-### 7. next.config.js 추가
+### next.config.js 추가
 ```javascript
 const withTypescript = require('@zeit/next-typescript');
+const withSass = require('@zeit/next-sass');
 
-module.exports = withTypescript();
-
+module.exports = withTypescript(withSass());
 ```
 
-### 8. tsconfig.json 추가
+### tsconfig.json 추가
 ```javascript
 {
     "compilerOptions": {
@@ -69,7 +73,7 @@ module.exports = withTypescript();
 }
 ```
 
-### 9. package.json 수정
+### package.json 수정
 ```
 "scripts": {
     "dev": "next",
@@ -78,7 +82,7 @@ module.exports = withTypescript();
 },
 ```
 
-### 10. directory 구조
+### directory 구조
 ```
 node_modules
 pages
@@ -86,9 +90,10 @@ pages
     - _document.tsx
     - index.tsx
 src
+	-styles
+		- index.scss
     - ts
         - components
-        - layouts
         - redux
             - actions
             - models
@@ -106,7 +111,7 @@ readme.md
 tsconfig.json
 ```
 
-### 11. pages 폴더 하위 파일 수정
+### pages 폴더 하위 파일 수정
 #### pages/_app.tsx
 ```typescript
 import App, { Container } from 'next/app';
@@ -177,7 +182,7 @@ export default class extends React.Component {
 
 ```
 
-### 12. redux 폴더 하위 파일 수정
+### redux 폴더 하위 파일 수정
 #### src/ts/redux/reducers
 ```typescript
 import { combineReducers } from 'redux';
@@ -214,7 +219,7 @@ sagaMiddleware.run(rootSaga);
 export default store;
 ```
 
-### 13. 빌드 및 실행
+### 빌드 및 실행
 ```
 yarn run dev
 ```
