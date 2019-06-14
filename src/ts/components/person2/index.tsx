@@ -2,13 +2,13 @@ import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from '../../redux/reducers';
-import { Person } from '../../redux/models/person';
 import { personActionConstant } from '../../redux/actions/person';
 
 type OwnProps = {};
 
 const Test: FunctionComponent<OwnProps> = (props) => {
-	const personList: Person[] = useSelector((state: State) => state.personReducer.personList);
+	const { personReducer } = useSelector((state: State) => state);
+	const { personList } = personReducer;
 	const dispatch = useDispatch();
 
 	const [ groupId, setGroupId ] = useState(0);
